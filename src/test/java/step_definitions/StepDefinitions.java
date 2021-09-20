@@ -5,7 +5,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.DashboardPage;
 import pages.LoginPage;
@@ -61,5 +60,10 @@ public class StepDefinitions {
     public void trebaDaVidimSledeceStavkeUSidebar(List<String> expectedSidebar) {
         List<String> actualSidebar = dashboardPage.getSidebarListu();
         Assert.assertEquals(expectedSidebar, actualSidebar);
+    }
+
+    @When("kliknem na {string} u sidebar")
+    public void kliknemNaUSidebar(String target) {
+        dashboardPage.klikniNaElementUSidebar(target);
     }
 }

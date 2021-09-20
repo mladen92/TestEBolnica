@@ -13,13 +13,22 @@ public class DashboardPage extends BasePage {
     List<WebElement> sidebarLista;
 
 
-    public List<String> getSidebarListu(){
+    public List<String> getSidebarListu() {
         List<String> actualSidebarLista = new ArrayList<>();
         wait.until(ExpectedConditions.visibilityOfAllElements(sidebarLista));
-        for (WebElement element    :  sidebarLista ) {
+        for (WebElement element : sidebarLista) {
             actualSidebarLista.add(element.getText());
         }
         return actualSidebarLista;
     }
 
+    public void klikniNaElementUSidebar(String target) {
+        for (WebElement element : sidebarLista) {
+            if (element.getText().contains(target)) {
+                wait.until(ExpectedConditions.elementToBeClickable(element));
+                element.click();
+                break;
+            }
+        }
+    }
 }
