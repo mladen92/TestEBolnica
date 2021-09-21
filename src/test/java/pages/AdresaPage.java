@@ -25,24 +25,35 @@ public class AdresaPage extends BasePage {
     @FindBy(xpath = "//div[@role='alert' and contains (text(),'dodata adresa')]")
     WebElement uspesnoDodataAdresa;
 
-    public void upisiGrad (String grad){
+    @FindBy(xpath = "//div[@role='alert' and contains (text(),'Niste uneli')]")
+    WebElement nisteUneliSvePodatke;
+
+    public void upisiGrad(String grad) {
         unesiGrad.sendKeys(grad);
     }
 
-    public void upisiUlicu (String ulica) {
+    public void upisiUlicu(String ulica) {
         unesiUlicu.sendKeys(ulica);
     }
-    public void upisiBroj (String brojulice) {
+
+    public void upisiBroj(String brojulice) {
         unesiBroj.sendKeys(brojulice);
     }
-    public void upisiPostanskiBroj (String postanskiBroj) {
+
+    public void upisiPostanskiBroj(String postanskiBroj) {
         unesiPostanskiBroj.sendKeys(postanskiBroj);
     }
-    public void klikniPotvrdi () {
+
+    public void klikniPotvrdi() {
         wait.until(ExpectedConditions.elementToBeClickable(potvrdi));
         potvrdi.click();
     }
-    public Boolean uspesnoDodataAdresaJeVidljiv (){
+
+    public Boolean uspesnoDodataAdresaJeVidljiv() {
         return uspesnoDodataAdresa.isDisplayed();
+    }
+
+    public Boolean nisteUneliSvePodatkeJeVidljiv() {
+        return nisteUneliSvePodatke.isDisplayed();
     }
 }

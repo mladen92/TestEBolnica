@@ -48,11 +48,23 @@ public class AdresaStepDefinitions {
     public void verifikujemoDaJePoslednjaAdresa(String expectedAdresa) {
         List<String> listaAdresa = radnikPage.getListuAdresa();
         String actual = listaAdresa.get(listaAdresa.size() - 1);
-        Assert.assertEquals(expectedAdresa,actual);
+        Assert.assertEquals(expectedAdresa, actual);
 
     }
 
 
+    @And("treba da vidim Niste Uneli sve podatke")
+    public void trebaDaVidimNisteUneliSvePodatke() {
+        Assert.assertTrue("Niste uneli sve podatke alert je vidiljiv", adresaPage.nisteUneliSvePodatkeJeVidljiv());
+    }
+
+    @Then("verifikujemo da {string} adresa nije dodata")
+    public void verifikujemoDaAdresaNijeDodata(String adresa) {
+        List<String> listaAdresa = radnikPage.getListuAdresa();
+        for (String actualAdresa : listaAdresa) {
+            Assert.assertNotEquals(adresa, actualAdresa);
+        }
+    }
 }
 
 
