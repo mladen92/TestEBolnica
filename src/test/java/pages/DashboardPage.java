@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DashboardPage extends BasePage {
 
-    @FindBy(xpath = "//div[@class='sidebar']/div")
+    @FindBy(xpath = "//div[@class='sidebar']/div/a")
     List<WebElement> sidebarLista;
 
 
