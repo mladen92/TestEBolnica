@@ -26,10 +26,10 @@ public class LekPage extends BasePage {
     @FindBy(name = "potvrdi")
     WebElement potvrdi;
 
-    @FindBy(xpath = "//div[contains(text(), 'dodat lek")
+    @FindBy(xpath = "//div[contains(text(), 'dodat lek')]")
     WebElement uspesnoDodatLek;
 
-    @FindBy(xpath = "//div[contains(text(), 'Nije uspelo")
+    @FindBy(xpath = "//div[contains(text(), 'Nije uspelo')]")
     WebElement nijeUspeloUpisivanje;
 
     public void upisiNazivLeka(String nazivLeka) {

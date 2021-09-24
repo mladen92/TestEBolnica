@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.DashboardPage;
+import pages.DijagnozaPage;
 import pages.LoginPage;
 import utilities.Driver;
 import utilities.Encrypt;
@@ -18,6 +19,7 @@ public class StepDefinitions {
     WebDriverWait wait = new WebDriverWait(driver, 15);
     LoginPage loginPage = new LoginPage();
     DashboardPage dashboardPage = new DashboardPage();
+    DijagnozaPage dijagnozaPage = new DijagnozaPage();
 
     @When("se ulogujem u eBolnica sa korisnickim imenom {string} i lozinkom {string}")
     public void ulogujSe(String korisnickoIme, String lozinka) throws Exception {
@@ -65,5 +67,35 @@ public class StepDefinitions {
     @When("kliknem na {string} u sidebar")
     public void kliknemNaUSidebar(String target) {
         dashboardPage.klikniNaElementUSidebar(target);
+    }
+
+    @When("unesem {string} u naziv dijagnoza")
+    public void unesemUNazivDijagnoza(String nazivDijagnoze) {
+        dijagnozaPage.upisiNazivDijagnoze(nazivDijagnoze);
+    }
+
+    @And("unesem {string} u unesi sifru dijagnoze")
+    public void unesemUUnesiSifruDijagnoze(String sifraDijagnoze) {
+        dijagnozaPage.upisiSifraDijagnoze(sifraDijagnoze);
+    }
+
+    @And("unesem {string} u unesi opis")
+    public void unesemUUnesiOpis(String opisDijagnoze) {
+        dijagnozaPage.upisiOpisDijagnoze(opisDijagnoze);
+    }
+
+    @Then("kliknem na potvrdi unos dijagnoze")
+    public void kliknemNaPotvrdiUnosDijagnoze() {
+        dijagnozaPage.klikniPotvrdi();
+    }
+
+    @And("treba da vidim uspesno dodata dijagnoza")
+    public void trebaDaVidimUspesnoDodataDijagnoza() {
+        Assert.assertTrue(dijagnozaPage.uspesnoDodataDijagnozaVidljiv());
+    }
+
+    @And("treba da vidim Nije uspelo upisivanje dijagnoze")
+    public void trebaDaVidimNijeUspeloUpisivanjeDijagnoze() {
+        Assert.assertTrue(dijagnozaPage.nijeUspeloUpisivanjeDijagnozeJeVidljiv());
     }
 }

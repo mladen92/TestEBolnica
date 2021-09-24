@@ -17,7 +17,7 @@ Feature: Funkcija dodaj lek
     Then kliknem na potvrdi unos adrese
     And treba da vidim uspesno dodat lek
 
-  Scenario: Neuspesno dodata adresa (nepotpuna forma)
+  Scenario: Neuspesno dodat lek (nepotpuna forma)
     When unesem "Paracetamol" u naziv leka
     And unesem "500mg" u unesi jedinicu mere
     And unesem "1" u unesi kolicinu
