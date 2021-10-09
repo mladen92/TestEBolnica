@@ -13,17 +13,18 @@ public class Hooks {
 
     @Before
     public void setUp(){
-        Driver.getDriver().get(ConfigurationReader.get("eBolnicaLocalUrl"));
+      //  Driver.getDriver().get(ConfigurationReader.get("eBolnicaLocalUrl"));
+        Driver.getDriver().manage().window().maximize();
     }
 
 
 
     @After
     public void tearDown(Scenario scenario){
-        if (scenario.isFailed()){
-            final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.embed(screenshot, "image/png");
-        }
+//        if (scenario.isFailed()){
+//            final byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+//            scenario.embed(screenshot, "image/png");
+//        }
         Driver.closeDriver();
     }
 
