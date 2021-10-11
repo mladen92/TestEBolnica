@@ -43,66 +43,80 @@ public class ApartmentStepDefinitions {
 
         airbnbPage.locationInput.sendKeys(Keys.TAB);
         Map<String, List<Map<String, String>>> houseListMap = new HashMap<>();
+        for (int p = 11; p < 13; p++) {
 
-        for (int i = 1; i < 30; i++) {
-            airbnbPage.checkIn.click();
-            Thread.sleep(500);
-            // has to match start i
-            if (i == 1) {
-                airbnbPage.nextMonthButton.click();
-            }
-            String checkinXpath = "//div[@data-testid='11-" + i + "-daytext']/..";
-            String checkOutXpath = "//div[@data-testid='11-" + (i + 1) + "-daytext']/..";
+            for (int i = 1; i < 30; i++) {
+                airbnbPage.checkIn.click();
+                Thread.sleep(500);
+                // has to match start i
+                if (i == 1) {
+                    airbnbPage.nextMonthButton.click();
+                    Thread.sleep(500);
 
-            Thread.sleep(500);
-            driver.findElement(By.xpath(checkinXpath)).click();
-            Thread.sleep(500);
-
-
-            driver.findElement(By.xpath(checkOutXpath)).click();
-            Thread.sleep(500);
-            airbnbPage.selectAdults("4");
-            airbnbPage.searchBtn.click();
-            Thread.sleep(500);
-            utilities.switchWindow();
-            Thread.sleep(1000);
-
-            for (int k = 0; k < 3; k++) {
-
-                // loop through houses
-                for (int j = 0; j < airbnbPage.bedroomNumberList.size(); j++) {
-                    try {
-
-                        Map<String, String> houseDetails = new HashMap<>();
-                        houseDetails.put("Date", "November " + i + " - " + (i + 1));
-                        houseDetails.put("Bedroom Number", airbnbPage.bedroomNumberList.get(j).getText());
-                        houseDetails.put("Price", airbnbPage.getHousePrice(airbnbPage.pricingTextList.get(j).getText()));
-                        houseDetails.put("Occupancy", airbnbPage.ocupancyList.get(j).getText());
-                        houseDetails.put("Number of beds", airbnbPage.numberOfBedsList.get(j).getText());
-                        List<Map<String, String>> houseList = new ArrayList<>();
-                        houseList.add(houseDetails);
-                        if (!houseListMap.containsKey(airbnbPage.houseNameList.get(j).getText())) {
-                            houseListMap.put(airbnbPage.houseNameList.get(j).getText(), houseList);
-                        } else {
-                            houseListMap.get(airbnbPage.houseNameList.get(j).getText()).add(houseDetails);
-                        }
-
-                    } catch (Exception e) {
-                        System.out.println(" ----------------   House Skiped  " + ++n + "---------");
-                    }
                 }
-                airbnbPage.nextPaqe.click();
-                Thread.sleep(7000);
+                String checkinXpath = "//div[@data-testid='" + p + "-" + i + "-daytext']/..";
+                String checkOutXpath = "//div[@data-testid='" + p + "-" + (i + 1) + "-daytext']/..";
+
+                Thread.sleep(500);
+                driver.findElement(By.xpath(checkinXpath)).click();
+                Thread.sleep(500);
+
+
+                driver.findElement(By.xpath(checkOutXpath)).click();
+                Thread.sleep(500);
+                airbnbPage.selectAdults("" + persons);
+                airbnbPage.searchBtn.click();
+                Thread.sleep(500);
+                utilities.switchWindow();
+                Thread.sleep(1000);
+                try {
+
+                    for (int k = 0; k < 10; k++) {
+
+                        // loop through houses
+                        for (int j = 0; j < airbnbPage.bedroomNumberList.size(); j++) {
+                            try {
+
+                                Map<String, String> houseDetails = new HashMap<>();
+                                if (p == 11) {
+                                    houseDetails.put("Date", "November " + i + " - " + (i + 1));
+                                } else {
+                                    houseDetails.put("Date", "December " + i + " - " + (i + 1));
+                                }
+                                houseDetails.put("Bedroom Number", airbnbPage.bedroomNumberList.get(j).getText());
+                                houseDetails.put("Price", airbnbPage.getHousePrice(airbnbPage.pricingTextList.get(j).getText()));
+                                houseDetails.put("Occupancy", airbnbPage.ocupancyList.get(j).getText());
+                                houseDetails.put("Number of beds", airbnbPage.numberOfBedsList.get(j).getText());
+                                List<Map<String, String>> houseList = new ArrayList<>();
+                                houseList.add(houseDetails);
+                                if (!houseListMap.containsKey(airbnbPage.houseNameList.get(j).getText())) {
+                                    houseListMap.put(airbnbPage.houseNameList.get(j).getText(), houseList);
+                                } else {
+                                    houseListMap.get(airbnbPage.houseNameList.get(j).getText()).add(houseDetails);
+                                }
+
+                            } catch (Exception e) {
+                                System.out.println(" ----------------   House Skiped  " + ++n + "---------");
+                            }
+                        }
+                        airbnbPage.nextPaqe.click();
+                        Thread.sleep(7000);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println(" ----------------  Page Skiped  " + i + "---------");
+                    utilities.switchToDefaultWindow();
+                    continue;
+                }
+                utilities.switchToDefaultWindow();
+
             }
-
-            utilities.switchToDefaultWindow();
-
         }
 
         excelWriter.setWorkbook();
 
 
-        excelWriter.writeExcelSheet(houseListMap, "November 1 - 30");
+        excelWriter.writeExcelSheet(houseListMap, "Nov And Dec");
 
     }
 

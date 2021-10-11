@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class ExcelWriter {
     Utilities utilities = new Utilities();
+    File file = new File("src/main/resources/apartment_data/nov-dec.xlsx");
+
     public static XSSFWorkbook workbook = new XSSFWorkbook();
 
     public void setWorkbook() {
@@ -22,7 +24,6 @@ public class ExcelWriter {
     public void writeExcelSheet(Map<String, List<Map<String, String>>> excelDataMap, String sheetName) throws IOException {
 
         XSSFSheet sheet = workbook.createSheet(sheetName);
-
 
         XSSFRow row;
 
@@ -80,7 +81,7 @@ public class ExcelWriter {
                 sumForHouse += utilities.getPrice(maps.get("Price"));
             }
 
-            average =  sumForHouse/numberOfDays;
+            average = sumForHouse / numberOfDays;
             assumption = average * 30;
             row = sheet.createRow(rowid++);
 
@@ -97,8 +98,10 @@ public class ExcelWriter {
 
         }
 
-        FileOutputStream out = new FileOutputStream(
-                new File("src/main/resources/apartment_data/apartments_analyse.xlsx"));
+        if (!file.exists()) {
+            file = new File("src/main/resources/apartment_data/apartments_nov-dec.xlsx");
+        }
+        FileOutputStream out = new FileOutputStream(file);
 
         workbook.write(out);
         out.close();
