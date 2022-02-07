@@ -64,7 +64,7 @@ public class CSVUtilities {
             csvWriter.append("Subject5");
             csvWriter.append("\n");
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 2500; i++) {
                 csvWriter.append(faker.name().firstName());
                 csvWriter.append(",");
                 csvWriter.append(faker.name().lastName());
@@ -86,10 +86,30 @@ public class CSVUtilities {
 
         } catch (RuntimeException e) {
             e.printStackTrace();
-        } finally {
             csvWriter.close();
         }
-
-
     }
+
+
+    public void updateStudentRecords(String filePath, List<String[]> updatedValues) throws IOException {
+
+        FileWriter csvWriter = new FileWriter(filePath);
+        try {
+            for (String[] arr : updatedValues) {
+                for (int i = 0; i < arr.length; i++) {
+                    csvWriter.append(arr[i]);
+                    csvWriter.append(",");
+                }
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            csvWriter.close();
+        }
+    }
+
 }
