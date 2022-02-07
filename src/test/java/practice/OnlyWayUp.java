@@ -1,8 +1,5 @@
 package practice;
 
-;
-import org.junit.Test;
-
 import java.util.*;
 import java.util.List;
 
